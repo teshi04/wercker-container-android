@@ -2,21 +2,10 @@ FROM ubuntu:14.04
 MAINTAINER keithyokoma <keith.yokoma@gmail.com>
 
 # Basic environment setup
-RUN apt-get update -y
-RUN apt-get upgrade -y
-RUN apt-get install git-core -y
-RUN apt-get install build-essential -y
-RUN apt-get install zip -y
-RUN apt-get install curl -y
-RUN apt-get install python-pip -y
-RUN apt-get install python-software-properties -y
-RUN apt-get install apt-file -y
-RUN apt-get install lib32z1 -y
+RUN apt-get update -y && apt-get upgrade -y && apt-get install git-core build-essential zip curl python-pip python-software-properties apt-file lib32z1 -y
 RUN apt-file update -y
 RUN apt-get install software-properties-common -y
-RUN dpkg --add-architecture i386
-RUN apt-get update -y
-RUN apt-get install libncurses5:i386 libstdc++6:i386 zlib1g:i386 -y
+RUN apt-add-repository ppa:brightbox/ruby-ng -y && dpkg --add-architecture i386 && apt-get update -y && apt-get install libncurses5:i386 libstdc++6:i386 zlib1g:i386 ruby2.3 ruby2.3-dev -y
 
 # Java setup
 RUN \
@@ -35,11 +24,10 @@ RUN \
     rm -rf /var/cache/oracle-jdk7-installer
 
 # Android SDK installation
-RUN cd /usr/local/ && curl -L -O http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && tar xf android-sdk_r24.4.1-linux.tgz
-
-# Install Android tools
-RUN echo y | /usr/local/android-sdk-linux/tools/android update sdk --no-ui --force --all --filter "tools" && \
-    echo y | /usr/local/android-sdk-linux/tools/android update sdk --no-ui --force --all --filter "platform-tools,build-tools-23.0.2,android-23,extra-google-google_play_services,extra-google-m2repository,extra-android-m2repository,addon-google_apis-google-23"
+RUN cd /usr/local/ && curl -L -O http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && tar xf android-sdk_r24.4.1-linux.tgz && \
+    echo y | /usr/local/android-sdk-linux/tools/android update sdk --no-ui --force --all --filter "tools" && \
+    echo y | /usr/local/android-sdk-linux/tools/android update sdk --no-ui --force --all --filter "platform-tools,build-tools-23.0.2,android-23" && \
+    echo y | /usr/local/android-sdk-linux/tools/android update sdk --no-ui --force --all --filter "extra-google-google_play_services,extra-google-m2repository,extra-android-m2repository,addon-google_apis-google-23"
 
 # Install Android NDK
 RUN cd /usr/local && curl -L -O http://dl.google.com/android/ndk/android-ndk-r9b-linux-x86_64.tar.bz2 && tar xf android-ndk-r9b-linux-x86_64.tar.bz2
