@@ -31,15 +31,14 @@ RUN cd /usr/local/ && curl -L -O http://dl.google.com/android/android-sdk_r24.4.
     rm -rf /usr/local/android-sdk_r24.4.1-linux.tgz
 
 # Install Android NDK
-RUN cd /usr/local && curl -L -O http://dl.google.com/android/ndk/android-ndk-r9b-linux-x86_64.tar.bz2 && tar xf android-ndk-r9b-linux-x86_64.tar.bz2 && \
-    rm -rf /usr/local/android-ndk-r9b-linux-x86_64.tar.bz2
+RUN cd /usr/local && curl -L -O https://dl.google.com/android/repository/android-ndk-r13-linux-x86_64.zip && unzip android-ndk-r13-linux-x86_64.zip && rm -rf android-ndk-r13-linux-x86_64.zip
 
 # Environment variables
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 ENV JAVA8_HOME /usr/lib/jvm/java-8-oracle
 ENV JAVA7_HOME /usr/lib/jvm/java-7-oracle
 ENV ANDROID_HOME /usr/local/android-sdk-linux
-ENV ANDROID_NDK_HOME /usr/local/android-ndk-r9b
+ENV ANDROID_NDK_HOME /usr/local/android-ndk-r13
 ENV GRADLE_HOME /usr/local/gradle-2.10
 ENV PATH $PATH:$ANDROID_HOME/tools
 ENV PATH $PATH:$ANDROID_HOME/platform-tools
