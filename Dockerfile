@@ -15,13 +15,6 @@ RUN \
   apt-get install -y oracle-java8-installer && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer
-RUN \
-    echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    add-apt-repository -y ppa:webupd8team/java && \
-    apt-get update -y && \
-    apt-get install -y oracle-java7-installer && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /var/cache/oracle-jdk7-installer
 
 # Android SDK installation
 RUN cd /usr/local/ && curl -L -O http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && tar xf android-sdk_r24.4.1-linux.tgz && \
@@ -36,7 +29,6 @@ RUN cd /usr/local && curl -L -O https://dl.google.com/android/repository/android
 # Environment variables
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 ENV JAVA8_HOME /usr/lib/jvm/java-8-oracle
-ENV JAVA7_HOME /usr/lib/jvm/java-7-oracle
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV ANDROID_NDK_HOME /usr/local/android-ndk-r13
 ENV GRADLE_HOME /usr/local/gradle-2.10
